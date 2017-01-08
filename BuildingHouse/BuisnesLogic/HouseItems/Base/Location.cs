@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BuisnesLogic.HouseItems.Base
 {
-    class Location
+    public abstract class Location
     {
+        public string Name { get; private set; }
+        public string[] Exits { get; set; }
     }
 }
