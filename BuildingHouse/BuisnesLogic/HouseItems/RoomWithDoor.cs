@@ -19,11 +19,7 @@ namespace BuisnesLogic.HouseItems
 
         public string DoorDescription { get; private set; }
 
-        public Location DoorLocation
-        {
-            get;
-
-            set;
-        }
+        public Location DoorLocation { get; set; }
+        
     }
 }

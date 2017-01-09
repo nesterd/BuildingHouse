@@ -29,7 +29,7 @@ namespace BuildingHouse
             InitializeComponent();
             CreateObjects();
             currentLocation = livingRoom;
-            FormUpdate();
+            MoveToANewLocation(livingRoom);
             
         }
 
@@ -42,21 +42,29 @@ namespace BuildingHouse
             frontYard = new OutsideWithDoor("Лужайка", false, "Дубовая дверь с латунной ручкой");
             garden = new Outside("Сад", false);
 
-            livingRoom.exits = new Location[] { frontYard, diningRoom };
-            kitchen.exits = new Location[] { diningRoom, backYard };
+            livingRoom.exits = new Location[] { diningRoom };
+            kitchen.exits = new Location[] { diningRoom};
             diningRoom.exits = new Location[] { livingRoom, kitchen };
-            backYard.exits = new Location[] { kitchen, garden };
-            frontYard.exits = new Location[] { livingRoom, garden };
+            backYard.exits = new Location[] { frontYard, garden };
+            frontYard.exits = new Location[] { backYard, garden };
             garden.exits = new Location[] { frontYard, backYard };
+
+            livingRoom.DoorLocation = frontYard;
+            frontYard.DoorLocation = livingRoom;
+
+            kitchen.DoorLocation = backYard;
+            backYard.DoorLocation = kitchen;
         }
 
-        void FormUpdate()
-        { 
+        void MoveToANewLocation(Location newLocation)
+        {
+            currentLocation = newLocation;
             description.Text = currentLocation.Description;
+            //exits.Items.Clear();
             exits.DataSource = currentLocation.exits.Select(x => x.Name).ToArray();
             //exits.Items.AddRange(currentLocation.exits/*.Select(x => x.Name).ToArray()*/);
             exits.SelectedIndex = 0;
-            if (currentLocation is RoomWithDoor)
+            if (currentLocation is IHasExteriorDoor)
                 goThroughTheDoor.Visible = true;
             else
                 goThroughTheDoor.Visible = false;
@@ -64,16 +72,17 @@ namespace BuildingHouse
 
         private void goHere_Click(object sender, EventArgs e)
         {
-            currentLocation = currentLocation.exits.FirstOrDefault(x => x.Name == exits.SelectedItem);
+            //currentLocation = currentLocation.exits.FirstOrDefault(x => x.Name == exits.SelectedItem);
             //currentLocation = exits.SelectedItem as Location;
-            FormUpdate();
+            MoveToANewLocation(currentLocation.exits.FirstOrDefault(x => x.Name == exits.SelectedItem));
         }
 
         private void goThroughTheDoor_Click(object sender, EventArgs e)
         {
             //currentLocation = (currentLocation as IHasExteriorDoor).DoorLocation;
-            currentLocation = currentLocation.exits.FirstOrDefault(x => x is OutsideWithDoor);
-            FormUpdate();
+            IHasExteriorDoor hasDoor = currentLocation as IHasExteriorDoor;
+            //currentLocation = currentLocation.exits.FirstOrDefault(x => x is OutsideWithDoor);
+            MoveToANewLocation(hasDoor.DoorLocation);
         }
     }
 }

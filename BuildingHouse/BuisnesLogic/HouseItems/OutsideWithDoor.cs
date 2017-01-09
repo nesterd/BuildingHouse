@@ -24,16 +24,13 @@ namespace BuisnesLogic.HouseItems
             }
         }
 
-        public Location DoorLocation
+        public Location DoorLocation { get; set; }
+
+        public override string Description
         {
             get
             {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
+                return base.Description + $" Вы видите {doorDescription}.";
             }
         }
     }
