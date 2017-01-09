@@ -12,18 +12,22 @@ using BuisnesLogic.HouseItems.Base;
 
 namespace BuildingHouse
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
+        Location currentLocation;
+
         RoomWithDoor livingRoom;
         RoomWithDoor kitchen;
         Room diningRoom;
         OutsideWithDoor backYard;
         OutsideWithDoor frontYard;
         Outside garden;
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             CreateObjects();
+            currentLocation = frontYard;
+            exits.Items.AddRange(currentLocation.exits);
         }
 
         private void CreateObjects()
