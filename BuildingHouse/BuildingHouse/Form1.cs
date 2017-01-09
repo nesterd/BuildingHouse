@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BuisnesLogic.HouseItems;
 using BuisnesLogic.HouseItems.Base;
+using BuisnesLogic.HouseItems.LocationsWithHidingPlaces;
 using BuisnesLogic.HouseItems.Interfaces;
 
 namespace BuildingHouse
@@ -20,9 +21,16 @@ namespace BuildingHouse
         RoomWithDoor livingRoom;
         RoomWithDoor kitchen;
         Room diningRoom;
+        Room secondFloorStairs;
+        RoomWithHidingPlace secondFloorHall;
+        RoomWithHidingPlace mainBedroom;
+        RoomWithHidingPlace secondBedroom;
+        RoomWithHidingPlace bathroom;
+
         OutsideWithDoor backYard;
         OutsideWithDoor frontYard;
-        Outside garden;
+        OutsideWithHidingPlace driveway;
+        OutsideWithHidingPlace garden;
 
         public MainForm()
         {
@@ -35,18 +43,32 @@ namespace BuildingHouse
 
         private void CreateObjects()
         {
-            livingRoom = new RoomWithDoor("Гостинная", "Старинный ковер", "Дубовая дверь с латунной ручкой");
-            kitchen = new RoomWithDoor("Кухня", "Плита из нержавеющей стали", "Сетчатая дверь");
+            livingRoom = new RoomWithDoor("Гостинная", "Старинный ковер", "Чулан", "Дубовая дверь с латунной ручкой");
+            kitchen = new RoomWithDoor("Кухня", "Плита из нержавеющей стали", "Шкаф", "Сетчатая дверь");
             diningRoom = new Room("Столовая", "Хрустальная люстра");
+            secondFloorStairs = new Room("Лестница на второй этаж", "Деревянные перила");
+            secondFloorHall = new RoomWithHidingPlace("корридор", "Картина с собакой", "шкаф");
+            mainBedroom = new RoomWithHidingPlace("Главная спальня", "Большая кровать", "Под кроватью");
+            secondBedroom = new RoomWithHidingPlace("Вторая спальня", "Небольшая кровать", "Под кроватью");
+            bathroom = new RoomWithHidingPlace("Ванная комната", "Раковина и туалет", "В душе");
+
             backYard = new OutsideWithDoor("Задний двор", true, "Сетчатая дверь");
             frontYard = new OutsideWithDoor("Лужайка", false, "Дубовая дверь с латунной ручкой");
-            garden = new Outside("Сад", false);
+            driveway = new OutsideWithHidingPlace("Проезд", false, "Гараж");
+            garden = new OutsideWithHidingPlace("Сад", false, "Сарай");
 
-            livingRoom.exits = new Location[] { diningRoom };
+            livingRoom.exits = new Location[] { diningRoom, secondFloorStairs };
+            secondFloorStairs.exits = new Location[] { livingRoom, secondFloorHall };
+            secondFloorHall.exits = new Location[] { mainBedroom, secondBedroom, bathroom, secondFloorStairs };
+            mainBedroom.exits = new Location[] { secondFloorHall };
+            secondBedroom.exits = new Location[] { secondFloorHall };
+            bathroom.exits = new Location[] { secondFloorHall };
             kitchen.exits = new Location[] { diningRoom};
             diningRoom.exits = new Location[] { livingRoom, kitchen };
-            backYard.exits = new Location[] { frontYard, garden };
-            frontYard.exits = new Location[] { backYard, garden };
+
+            backYard.exits = new Location[] { frontYard, garden, driveway };
+            frontYard.exits = new Location[] { backYard, garden, driveway };
+            driveway.exits = new Location[] { frontYard, backYard };
             garden.exits = new Location[] { frontYard, backYard };
 
             livingRoom.DoorLocation = frontYard;
