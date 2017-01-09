@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BuisnesLogic.HouseItems;
 using BuisnesLogic.HouseItems.Base;
+using BuisnesLogic.HouseItems.Interfaces;
 
 namespace BuildingHouse
 {
@@ -70,6 +71,7 @@ namespace BuildingHouse
 
         private void goThroughTheDoor_Click(object sender, EventArgs e)
         {
+            //currentLocation = (currentLocation as IHasExteriorDoor).DoorLocation;
             currentLocation = currentLocation.exits.FirstOrDefault(x => x is OutsideWithDoor);
             FormUpdate();
         }

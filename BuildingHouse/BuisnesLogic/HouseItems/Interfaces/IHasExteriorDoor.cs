@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BuisnesLogic.HouseItems.Interfaces
 {
-    interface IHasExteriorDoor
+    public interface IHasExteriorDoor
     {
         string DoorDescription { get;}
         Location DoorLocation { get; set; }

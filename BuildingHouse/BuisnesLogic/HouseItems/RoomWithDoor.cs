@@ -10,32 +10,20 @@ namespace BuisnesLogic.HouseItems
     public class RoomWithDoor
         : Room, Interfaces.IHasExteriorDoor
     {
-        string doorDescription;
+        //string doorDescription;
 
         public RoomWithDoor(string name, string decoration, string doorDescription) : base(name, decoration)
         {
-            this.doorDescription = doorDescription;
+            DoorDescription = doorDescription;
         }
 
-        public string DoorDescription
-        {
-            get
-            {
-                return doorDescription;
-            }
-        }
+        public string DoorDescription { get; private set; }
 
         public Location DoorLocation
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get;
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+            set;
         }
     }
 }
