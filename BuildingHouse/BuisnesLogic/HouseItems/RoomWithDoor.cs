@@ -4,18 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BuisnesLogic.HouseItems.Base;
+using BuisnesLogic.HouseItems.LocationsWithHidingPlaces;
 
 namespace BuisnesLogic.HouseItems
 {
     public class RoomWithDoor
-        : Room, Interfaces.IHasExteriorDoor
+        : RoomWithHidingPlace, Interfaces.IHasExteriorDoor
     {
-        //string doorDescription;
-
-        public RoomWithDoor(string name, string decoration, string doorDescription) : base(name, decoration)
+        public RoomWithDoor(string name, string decoration, string hidingPlace, string doorDescription)
+            : base(name, decoration, hidingPlace)
         {
             DoorDescription = doorDescription;
         }
+
+        //string doorDescription;
+
+        //public RoomWithDoor(string name, string decoration, string doorDescription) : base(name, decoration)
+        //{
+        //    DoorDescription = doorDescription;
+        //}
 
         public string DoorDescription { get; private set; }
 

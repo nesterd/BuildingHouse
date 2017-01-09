@@ -44,8 +44,12 @@
     <Compile Include="HouseItems\Interfaces\IHasExteriorDoor.cs" />
     <Compile Include="HouseItems\Base\Outside.cs" />
     <Compile Include="HouseItems\Base\Room.cs" />
+    <Compile Include="HouseItems\Interfaces\IHidingPlace.cs" />
+    <Compile Include="HouseItems\LocationsWithHidingPlaces\OutsideWithHidingPlace.cs" />
+    <Compile Include="HouseItems\LocationsWithHidingPlaces\RoomWithHidingPlace.cs" />
     <Compile Include="HouseItems\OutsideWithDoor.cs" />
     <Compile Include="HouseItems\RoomWithDoor.cs" />
+    <Compile Include="OpponentLogic\Opponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
