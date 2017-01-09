@@ -22,12 +22,14 @@ namespace BuildingHouse
         OutsideWithDoor backYard;
         OutsideWithDoor frontYard;
         Outside garden;
+
         public MainForm()
         {
             InitializeComponent();
             CreateObjects();
-            currentLocation = frontYard;
-            exits.Items.AddRange(currentLocation.exits);
+            currentLocation = livingRoom;
+            FormUpdate();
+            
         }
 
         private void CreateObjects()
@@ -45,6 +47,31 @@ namespace BuildingHouse
             backYard.exits = new Location[] { kitchen, garden };
             frontYard.exits = new Location[] { livingRoom, garden };
             garden.exits = new Location[] { frontYard, backYard };
+        }
+
+        void FormUpdate()
+        { 
+            description.Text = currentLocation.Description;
+            exits.DataSource = currentLocation.exits.Select(x => x.Name).ToArray();
+            //exits.Items.AddRange(currentLocation.exits/*.Select(x => x.Name).ToArray()*/);
+            exits.SelectedIndex = 0;
+            if (currentLocation is RoomWithDoor)
+                goThroughTheDoor.Visible = true;
+            else
+                goThroughTheDoor.Visible = false;
+        }
+
+        private void goHere_Click(object sender, EventArgs e)
+        {
+            currentLocation = currentLocation.exits.FirstOrDefault(x => x.Name == exits.SelectedItem);
+            //currentLocation = exits.SelectedItem as Location;
+            FormUpdate();
+        }
+
+        private void goThroughTheDoor_Click(object sender, EventArgs e)
+        {
+            currentLocation = currentLocation.exits.FirstOrDefault(x => x is OutsideWithDoor);
+            FormUpdate();
         }
     }
 }

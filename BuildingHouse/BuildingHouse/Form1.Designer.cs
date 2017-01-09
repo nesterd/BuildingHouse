@@ -59,6 +59,7 @@
             this.goHere.TabIndex = 2;
             this.goHere.Text = "Go here:";
             this.goHere.UseVisualStyleBackColor = true;
+            this.goHere.Click += new System.EventHandler(this.goHere_Click);
             // 
             // goThroughTheDoor
             // 
@@ -68,6 +69,7 @@
             this.goThroughTheDoor.TabIndex = 3;
             this.goThroughTheDoor.Text = "Go Through The Door";
             this.goThroughTheDoor.UseVisualStyleBackColor = true;
+            this.goThroughTheDoor.Click += new System.EventHandler(this.goThroughTheDoor_Click);
             // 
             // MainForm
             // 
