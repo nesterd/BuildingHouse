@@ -9,6 +9,28 @@ namespace BuisnesLogic.HouseItems.Base
     public abstract class Location
     {
         public string Name { get; private set; }
-        public string[] Exits { get; set; }
+        public Location[] exits;
+
+        public Location (string name)
+        {
+            Name = name;
+        }
+
+        public virtual string Description
+        {
+            get
+            {
+                string description = $"Вы находитесь в {Name}. Вы видите двери ведущие в: ";
+                foreach (var exit in exits)
+                {
+                    description += $" {exit.Name},";
+                }
+                description.TrimEnd(',');
+                description += ".";
+                return description;
+            }
+        }
+
+
     }
 }
